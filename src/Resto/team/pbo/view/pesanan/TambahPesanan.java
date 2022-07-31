@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -83,6 +84,8 @@ public class TambahPesanan extends javax.swing.JFrame {
     }
     public void setListPesanan(String[][] listPesanan) {
         controller.setListPesanan(listPesanan);
+        SwingUtilities.updateComponentTreeUI(this);
+        
         controller.setValueTabel(this);
     }
 
@@ -133,6 +136,7 @@ public class TambahPesanan extends javax.swing.JFrame {
         btnEditPesanan = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cbTDuduk = new javax.swing.JComboBox<>();
+        btnLoadData = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -415,6 +419,11 @@ public class TambahPesanan extends javax.swing.JFrame {
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, -1, -1));
 
         btnHapusPesanan.setText("Hapus");
+        btnHapusPesanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHapusPesananMouseClicked(evt);
+            }
+        });
         btnHapusPesanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusPesananActionPerformed(evt);
@@ -428,13 +437,21 @@ public class TambahPesanan extends javax.swing.JFrame {
                 btnEditPesananMouseClicked(evt);
             }
         });
-        jPanel2.add(btnEditPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        jPanel2.add(btnEditPesanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, 70, -1));
 
         jLabel6.setText("Tempat Duduk");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, -1, -1));
 
         cbTDuduk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel2.add(cbTDuduk, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 240, 130, -1));
+
+        btnLoadData.setText("Load Data");
+        btnLoadData.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoadDataMouseClicked(evt);
+            }
+        });
+        jPanel2.add(btnLoadData, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, -1, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 530, 320));
 
@@ -481,6 +498,16 @@ public class TambahPesanan extends javax.swing.JFrame {
         controller.bayarPesanan(this);
     }//GEN-LAST:event_jButton2MouseClicked
 
+    private void btnLoadDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoadDataMouseClicked
+        // TODO add your handling code here:
+        controller.setValueTabel(this);
+    }//GEN-LAST:event_btnLoadDataMouseClicked
+
+    private void btnHapusPesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusPesananMouseClicked
+        // TODO add your handling code here:
+        controller.HapusPesanan(this);
+    }//GEN-LAST:event_btnHapusPesananMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -519,6 +546,7 @@ public class TambahPesanan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditPesanan;
     private javax.swing.JButton btnHapusPesanan;
+    private javax.swing.JButton btnLoadData;
     private javax.swing.JButton btnTambah;
     private javax.swing.JComboBox<String> cbMenuMakanan;
     private javax.swing.JComboBox<String> cbTDuduk;

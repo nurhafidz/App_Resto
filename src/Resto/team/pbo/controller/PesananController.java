@@ -8,6 +8,7 @@ import Resto.team.pbo.model.MakananModel;
 import Resto.team.pbo.model.MejaModel;
 import Resto.team.pbo.model.PesananModel;
 import Resto.team.pbo.view.pesanan.EditPesanan;
+import Resto.team.pbo.view.pesanan.MenuPesanan;
 import Resto.team.pbo.view.pesanan.TambahPesanan;
 import java.awt.Image;
 import javax.swing.DefaultComboBoxModel;
@@ -50,6 +51,7 @@ public class PesananController {
     }
 
     public void viewMenu(TambahPesanan view) {}
+    
     public String[] setMakanan() {
         String[][] getMakanan = model.getMakanan().GetAllMakanan();
 
@@ -63,6 +65,7 @@ public class PesananController {
         return data;
 
     }
+    
     public String[] setTDuduk() {
         
         String[][] getMeja = meja.getMejaHelper().GetAllMejaTersedia();
@@ -75,6 +78,7 @@ public class PesananController {
         return data;
 
     }
+    
     public void scaleImage(TambahPesanan view, String nama_Foto) {
         ImageIcon icon = new ImageIcon(getClass().getResource("../asset/image/" + nama_Foto));
         Image img = icon.getImage();
@@ -99,6 +103,7 @@ public class PesananController {
             }
         }
     }
+    
     public void onClickTambah(TambahPesanan view) {
         
         try{
@@ -107,6 +112,7 @@ public class PesananController {
             String catatan = view.getTaCatatan().getText();
             this.updateAndSetArr(dataMakanan,qty,catatan,getPanjangArray()+1,false);
             this.setValueTabel(view);
+            this.resetInputPesan(view);
         }
         catch (Exception ex) {
             JOptionPane.showMessageDialog(view,ex);
@@ -161,18 +167,24 @@ public class PesananController {
     }
 
     public void setValueTabel(TambahPesanan view) {
-        String[][] listPesan = listPesanan;
-        int julmahsma = 0;
-        for (int i = 0; i < listPesan.length; i++) {
-//            System.out.println(listPesanan[i][0]+"-"+listPesanan[i][1]+"-"+listPesanan[i][2]+"-"+listPesanan[i][3]+"-"+listPesanan[i][4]+"-"+listPesanan[i][5]+"-"+listPesanan[i][6]);
-            view.getTblListPesanan().setValueAt(listPesan[i][0], i, 0);
-            view.getTblListPesanan().setValueAt(listPesan[i][2], i, 1);
-            view.getTblListPesanan().setValueAt(listPesan[i][3], i, 2);
-            view.getTblListPesanan().setValueAt(listPesan[i][5], i, 3);
-            view.getTblListPesanan().setValueAt(listPesan[i][6], i, 4);
-            julmahsma += Integer.valueOf(listPesan[i][6]);
+        try{
+            String[][] listPesan = listPesanan;
+            int julmahsma = 0;
+            this.resetTable(view);
+            for (int i = 0; i < listPesan.length; i++) {
+    //            System.out.println(listPesanan[i][0]+"-"+listPesanan[i][1]+"-"+listPesanan[i][2]+"-"+listPesanan[i][3]+"-"+listPesanan[i][4]+"-"+listPesanan[i][5]+"-"+listPesanan[i][6]);
+                view.getTblListPesanan().setValueAt(listPesan[i][0], i, 0);
+                view.getTblListPesanan().setValueAt(listPesan[i][2], i, 1);
+                view.getTblListPesanan().setValueAt(listPesan[i][3], i, 2);
+                view.getTblListPesanan().setValueAt(listPesan[i][5], i, 3);
+                view.getTblListPesanan().setValueAt(listPesan[i][6], i, 4);
+                julmahsma += Integer.valueOf(listPesan[i][6]);
+            }
+            view.getTxtJumlahBayar().setText("Rp "+ julmahsma);
         }
-        view.getTxtJumlahBayar().setText("Rp "+ julmahsma);
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(view,"Tidak ada data");
+        }
     }
     
     public void EditPesanan(EditPesanan viewEdit, TambahPesanan viewPesan){
@@ -188,6 +200,7 @@ public class PesananController {
             JOptionPane.showMessageDialog(viewPesan,"Pilih baris yang memiliki data");
         }
     }
+    
     public void UpdatePesanan(EditPesanan viewEdit,TambahPesanan viewPesan){
         try{
             String dataMakanan = viewEdit.getCbMenuEdit().getSelectedItem().toString();
@@ -213,12 +226,15 @@ public class PesananController {
                 String[] dataOrder = new String[4];
                 dataOrder[0]=mejaData[0][0].toString();
                 dataOrder[1]=jumlahPembayaran[1];
-                dataOrder[2]="0";
-                dataOrder[3]="waiting payment";
+                dataOrder[2]="waiting payment";
                 
                 pesananModel.insertOrderFoodAndOrder(dataOrder,listPesanan);
-                System.out.println("Berhasil");
-                
+                this.resetInputPesan(view);
+                this.resetTable(view);
+                JOptionPane.showMessageDialog(view,"Berhasil, Silahkan Menu Ke kasir Untuk Pembayaran");
+                MenuPesanan menuView = new MenuPesanan();
+                menuView.setVisible(true);
+                view.setVisible(false);
             }
             else{
                 if(panjang < 1)JOptionPane.showMessageDialog(view,"Isi Pesanan Terlebih dahulu");
@@ -229,5 +245,46 @@ public class PesananController {
             System.out.println(ex);
         }
     }
-
+    
+    public void HapusPesanan(TambahPesanan view){
+        if(this.getPanjangArray() != 0){
+            int row = view.getTblListPesanan().getSelectedRow();
+            String[][] getList = new String[this.getPanjangArray()-1][7];
+            if(this.getPanjangArray()-1> 0){
+                for(int i=0;i<this.getPanjangArray();i++){
+                    
+                    if(i==row){
+                        continue;
+                    }
+                    else if(i>row){
+                        getList[i-1] = listPesanan[i];
+                        getList[i-1][0] = String.valueOf(i);
+                    }
+                    else{
+                        getList[i] = listPesanan[i];
+                    }
+                }
+            }
+            this.setListPesanan(getList);
+            this.setValueTabel(view);
+        }
+        else{
+            JOptionPane.showMessageDialog(view,"tidak ada pesanan");
+        }
+    }
+    
+    public void resetInputPesan(TambahPesanan view){
+        view.getTfBanyak().setText("");
+        view.getTaCatatan().setText("");
+    }
+    
+    public void resetTable(TambahPesanan view){
+        for (int i = 0; i < 100; i++) {
+                view.getTblListPesanan().setValueAt("", i, 0);
+                view.getTblListPesanan().setValueAt("", i, 1);
+                view.getTblListPesanan().setValueAt("", i, 2);
+                view.getTblListPesanan().setValueAt("", i, 3);
+                view.getTblListPesanan().setValueAt("", i, 4);
+            }
+    }
 }

@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -174,12 +175,15 @@ public class EditPesanan extends javax.swing.JFrame {
 
     private void btnSimpanEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanEditActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_btnSimpanEditActionPerformed
 
     private void btnSimpanEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanEditMouseClicked
         // TODO add your handling code here:
         TambahPesanan viewPesan = new TambahPesanan();
         controller.UpdatePesanan(this, viewPesan);
+        
     }//GEN-LAST:event_btnSimpanEditMouseClicked
 
     /**

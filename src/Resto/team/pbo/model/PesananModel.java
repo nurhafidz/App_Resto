@@ -45,6 +45,7 @@ public class PesananModel {
     
     public void insertOrderFoodAndOrder(String[] insert_Order, String[][] inserOrder_Food){
         int getIdOrder = this.insertOrder(insert_Order);
+        
         this.insertOrderFood(getIdOrder,inserOrder_Food);
     }
     public void insertOrderFood(int orderId,String[][] inserOrder_Food){
@@ -68,7 +69,8 @@ public class PesananModel {
     public int insertOrder(String[] insert_Order){
         try{
             Connection con = connect.getConnection();
-            String query = "INSERT INTO `order`(`table_code`, `total`, `cash`, `status`) VALUES ('"+insert_Order[0]+"','"+Integer.valueOf(insert_Order[1])+"','"+Integer.valueOf(insert_Order[2])+"','"+insert_Order[3]+"')";
+            String query = "INSERT INTO `order`(`table_code`, `total`, `status`) VALUES ('"+insert_Order[0]+"','"+Integer.valueOf(insert_Order[1])+"','"+insert_Order[2]+"')";
+            this.updateStatusMeja(insert_Order[0]);
             this.setPs(con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS));
             this.ps.execute();
             this.setRs(this.ps.getGeneratedKeys());
@@ -82,8 +84,17 @@ public class PesananModel {
             System.out.println(ex);
             return 0;
         }
-        
     }
-
+    public void updateStatusMeja(String idMeja){
+        try{
+            Connection con = connect.getConnection();
+            String query = "UPDATE `table` SET `status`='Tidak Tersedia' WHERE `table_code` = '"+idMeja+"'";
+            this.setPs(con.prepareStatement(query));
+            this.ps.execute();
+            connect.CloseConnection();
+        }catch(SQLException ex){
+            System.out.println(ex);
+        }
+    }
     
 }
