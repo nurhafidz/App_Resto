@@ -9,6 +9,7 @@ import Resto.team.pbo.model.MakananModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -33,6 +34,7 @@ public class EditPesanan extends javax.swing.JFrame {
         
         controller.setModel(model);
         cbMenuEdit.setModel(new DefaultComboBoxModel<>(controller.setMakanan()));
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     public MakananModel getModel() {

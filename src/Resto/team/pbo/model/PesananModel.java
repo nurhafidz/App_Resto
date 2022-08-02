@@ -6,11 +6,13 @@ package Resto.team.pbo.model;
 
 import Resto.team.pbo.connection.DataBaseConnection;
 import Resto.team.pbo.helper.MakananArray;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,6 +22,18 @@ public class PesananModel {
     private DataBaseConnection connect = new DataBaseConnection();
     private ResultSet rs;
     private PreparedStatement ps;
+    private int manyData;
+    
+    private Connection conn = null;
+	
+    public PesananModel()  {
+        try{
+	conn = connect.getConnection();
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+        }
+    }
 
     public DataBaseConnection getConnect() {
         return connect;
@@ -42,6 +56,16 @@ public class PesananModel {
     public void setPs(PreparedStatement ps) {
         this.ps = ps;
     }
+
+    public int getManyData() {
+        return manyData;
+    }
+
+    public void setManyData(int manyData) {
+        this.manyData = manyData;
+    }
+    
+    
     
     public void insertOrderFoodAndOrder(String[] insert_Order, String[][] inserOrder_Food){
         int getIdOrder = this.insertOrder(insert_Order);
@@ -97,4 +121,89 @@ public class PesananModel {
         }
     }
     
+    
+    public List<ListPesanan> orderSelected() {
+        try{
+            PreparedStatement stmt = conn.prepareStatement("SELECT o.order_code,o.status, (select count(*) from `order_food` f where f.`order_code` = o.`order_code`) jumlah,t.`name`,o.`total`,o.`timestamp` from `order` o,`table` t WHERE t.`table_code`=o.`table_code` ORDER BY o.`order_code` DESC;");
+	    ResultSet rs = stmt.executeQuery();	   
+	    List<ListPesanan> matches = new ArrayList<ListPesanan>(); 
+            int count = 0;
+	    while ( rs.next() ) {
+	        ListPesanan listed = new ListPesanan();
+	        listed.ID = rs.getInt("order_code");
+	        listed.Status = rs.getString("status");
+	        listed.Jumlah = rs.getInt("jumlah");
+	        listed.Meja = rs.getString("name");
+	        listed.Total = rs.getInt("total");
+                listed.Tgl = rs.getString("timestamp");
+                count ++;
+	        matches.add(listed);
+	    }
+	    this.setManyData(count);
+	    return matches;
+        }
+        
+        catch(Exception ex){
+            System.out.println(ex);
+            return null;
+        }
+    }
+    public List<ListPesanan> orderSelectedByID(int id) {
+        try{
+            PreparedStatement stmt = conn.prepareStatement("SELECT * ,(select name from `table` t where t.`table_code` = o.`table_code`) name FROM `order`o WHERE o.order_code = '"+id+"';");
+	    ResultSet rs = stmt.executeQuery();	   
+	    List<ListPesanan> matches = new ArrayList<ListPesanan>(); 
+	    while ( rs.next() ) {
+	        ListPesanan listed = new ListPesanan();
+	        listed.ID = rs.getInt("order_code");
+	        listed.Status = rs.getString("status");
+	        listed.Jumlah = 0;
+	        listed.Meja = rs.getString("name");
+	        listed.Total = rs.getInt("total");
+                listed.Tgl = rs.getString("timestamp");
+	        matches.add(listed);
+	    }
+	    return matches;
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+            return null;
+        }
+    }
+    public List<ListPesananMakanan> getPesananMakananByIdOrder(int idOrder) {
+        try{
+            PreparedStatement stmt = conn.prepareStatement("SELECT *,(SELECT f.`name` FROM `food` f WHERE of.food_code = f.food_code)menuMakanan FROM `order_food`of WHERE order_code ='"+idOrder+"';");
+	    ResultSet rs = stmt.executeQuery();	   
+	    List<ListPesananMakanan> matches = new ArrayList<ListPesananMakanan>(); 
+	    while ( rs.next() ) {
+	        ListPesananMakanan listed = new ListPesananMakanan();
+	        listed.ID = rs.getInt("order_food_code");
+	        listed.Order_Code = rs.getInt("order_code");
+	        listed.Food_Code = rs.getString("food_code");
+	        listed.Nama_Menu = rs.getString("menuMakanan");
+	        listed.Qty = rs.getInt("qty");
+                listed.Note = rs.getString("note");
+	        matches.add(listed);
+	    }
+	    return matches;
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+            return null;
+        }
+    }
+    
+    public void updateStatusPesanan(int idOrder, String message) throws SQLException{
+        PreparedStatement stmt = conn.prepareStatement("UPDATE `order` SET `status` = '"+message+"' WHERE `order_code`='"+idOrder+"'");
+        stmt.execute();
+    }
+    public void deletePesanan(int idOrder) throws SQLException{
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `order` WHERE `order_code` = '"+idOrder+"'");
+        stmt.execute();
+    }
+    public void deletePesananMakanan(int idOrder) throws SQLException{
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `order_food` WHERE `order_code` = '"+idOrder+"'");
+        stmt.execute();
+    }
+	    
 }

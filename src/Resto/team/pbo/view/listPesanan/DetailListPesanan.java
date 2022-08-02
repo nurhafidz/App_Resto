@@ -5,6 +5,12 @@
  */
 package Resto.team.pbo.view.listPesanan;
 
+import Resto.team.pbo.controller.ListPesananMakananController;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+
 /**
  *
  * @author ALDI
@@ -14,9 +20,53 @@ public class DetailListPesanan extends javax.swing.JFrame {
     /**
      * Creates new form detailView
      */
+    private ListPesananMakananController controller;
     public DetailListPesanan() {
         initComponents();
     }
+    public DetailListPesanan(int id) {
+        controller = new ListPesananMakananController(id);
+        initComponents();
+        controller.setValueTabel(this);
+        controller.setDetailPesanan(this);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    public JButton getBtnTutup() {
+        return btnTutup;
+    }
+
+    public JTable getTblPesananM() {
+        return tblPesananM;
+    }
+
+    public JLabel getTxtBayar() {
+        return txtBayar;
+    }
+
+    public JLabel getTxtCatatan() {
+        return txtCatatan;
+    }
+
+    public JLabel getTxtMeja() {
+        return txtMeja;
+    }
+
+    public JLabel getTxtStatus() {
+        return txtStatus;
+    }
+
+    public JLabel getTxtTgl() {
+        return txtTgl;
+    }
+
+    public JButton getBtnBayarOrSelesai() {
+        return btnBayarOrSelesai;
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,17 +80,20 @@ public class DetailListPesanan extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        tblPesananM = new javax.swing.JTable();
+        txtStatus = new javax.swing.JLabel();
+        txtBayar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        btnBayar = new javax.swing.JButton();
-        btnCetak = new javax.swing.JButton();
+        txtCatatan = new javax.swing.JLabel();
+        btnBayarOrSelesai = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        btnSelesai = new javax.swing.JButton();
+        txtMeja = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtTgl = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         btnTutup = new javax.swing.JButton();
+        btnCetak = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -51,83 +104,94 @@ public class DetailListPesanan extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPesananM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "No", "Menu Pesanan", "Jumlah pesanan"
+                "No", "Id Pesanan", "Menu Pesanan", "Jumlah pesanan"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(2);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(410);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jScrollPane1.setViewportView(tblPesananM);
+        if (tblPesananM.getColumnModel().getColumnCount() > 0) {
+            tblPesananM.getColumnModel().getColumn(0).setResizable(false);
+            tblPesananM.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tblPesananM.getColumnModel().getColumn(1).setResizable(false);
+            tblPesananM.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tblPesananM.getColumnModel().getColumn(2).setResizable(false);
+            tblPesananM.getColumnModel().getColumn(2).setPreferredWidth(410);
+            tblPesananM.getColumnModel().getColumn(3).setResizable(false);
+            tblPesananM.getColumnModel().getColumn(3).setPreferredWidth(100);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 240));
 
-        jLabel2.setText("di bayar");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, -1, -1));
+        txtStatus.setText("di bayar");
+        jPanel1.add(txtStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 120, -1));
 
-        jLabel3.setText("Rp 0");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 30, -1));
+        txtBayar.setText("Rp 0");
+        jPanel1.add(txtBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 130, -1));
 
         jLabel4.setText("Jumlah yang harus di bayar");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
 
-        jLabel5.setText("Catatan");
-        jLabel5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 370, 110));
+        txtCatatan.setText("Catatan");
+        txtCatatan.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jPanel1.add(txtCatatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 370, 110));
 
-        btnBayar.setText("BAYAR");
-        btnBayar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBayarActionPerformed(evt);
+        btnBayarOrSelesai.setText("BAYAR");
+        btnBayarOrSelesai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBayarOrSelesaiMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnBayarOrSelesaiMouseEntered(evt);
             }
         });
-        jPanel1.add(btnBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 80, -1));
-
-        btnCetak.setText("CETAK");
-        btnCetak.addActionListener(new java.awt.event.ActionListener() {
+        btnBayarOrSelesai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCetakActionPerformed(evt);
+                btnBayarOrSelesaiActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, -1, -1));
+        jPanel1.add(btnBayarOrSelesai, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 120, -1));
 
         jLabel6.setText("Status");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
         jLabel7.setText("Catatan");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
 
-        btnSelesai.setText("SELESAI");
-        btnSelesai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelesaiActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnSelesai, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, -1, -1));
+        txtMeja.setText("M1");
+        jPanel1.add(txtMeja, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 120, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 600, 450));
+        jLabel9.setText("Meja");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, -1, -1));
+
+        txtTgl.setText("01-01");
+        jPanel1.add(txtTgl, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, 300, -1));
+
+        jLabel11.setText("Tanggal Pembelian");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 600, 500));
 
         btnTutup.setText("Tutup");
+        btnTutup.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTutupMouseClicked(evt);
+            }
+        });
         btnTutup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTutupActionPerformed(evt);
@@ -135,12 +199,21 @@ public class DetailListPesanan extends javax.swing.JFrame {
         });
         getContentPane().add(btnTutup, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        btnCetak.setText("CETAK");
+        btnCetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCetakActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, -1));
+
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarActionPerformed
+    private void btnBayarOrSelesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBayarOrSelesaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnBayarActionPerformed
+    }//GEN-LAST:event_btnBayarOrSelesaiActionPerformed
 
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         // TODO add your handling code here:
@@ -150,9 +223,20 @@ public class DetailListPesanan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTutupActionPerformed
 
-    private void btnSelesaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelesaiActionPerformed
+    private void btnBayarOrSelesaiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBayarOrSelesaiMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSelesaiActionPerformed
+        
+    }//GEN-LAST:event_btnBayarOrSelesaiMouseEntered
+
+    private void btnBayarOrSelesaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBayarOrSelesaiMouseClicked
+        // TODO add your handling code here:
+        controller.checkTombol(this);
+    }//GEN-LAST:event_btnBayarOrSelesaiMouseClicked
+
+    private void btnTutupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTutupMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btnTutupMouseClicked
 
     /**
      * @param args the command line arguments
@@ -193,19 +277,22 @@ public class DetailListPesanan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBayar;
+    private javax.swing.JButton btnBayarOrSelesai;
     private javax.swing.JButton btnCetak;
-    private javax.swing.JButton btnSelesai;
     private javax.swing.JButton btnTutup;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblPesananM;
+    private javax.swing.JLabel txtBayar;
+    private javax.swing.JLabel txtCatatan;
+    private javax.swing.JLabel txtMeja;
+    private javax.swing.JLabel txtStatus;
+    private javax.swing.JLabel txtTgl;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,6 +11,7 @@ import Resto.team.pbo.view.pesanan.EditPesanan;
 import Resto.team.pbo.view.pesanan.MenuPesanan;
 import Resto.team.pbo.view.pesanan.TambahPesanan;
 import java.awt.Image;
+import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -28,7 +29,7 @@ public class PesananController {
     private String[][] listPesanan;
     private PesananModel pesananModel;
 
-    public PesananController() {
+    public PesananController(){
         this.pesananModel = new PesananModel();
         this.meja = new MejaModel();
     }

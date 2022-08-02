@@ -5,6 +5,10 @@
  */
 package Resto.team.pbo.view.listPesanan;
 
+import Resto.team.pbo.controller.ListPesananController;
+import Resto.team.pbo.view.login.Dashboard;
+import javax.swing.JTable;
+
 /**
  *
  * @author ALDI
@@ -14,9 +18,23 @@ public class ListPesananIndex extends javax.swing.JFrame {
     /**
      * Creates new form view
      */
+    private ListPesananController controller;
+    
     public ListPesananIndex() {
         initComponents();
+        controller = new ListPesananController();
+        
+        controller.GetDataIndex(this);
+        
     }
+
+    public JTable getTblPesanan() {
+        return tblPesanan;
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,7 +67,7 @@ public class ListPesananIndex extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No", "Pesanan", "Jumlah Pesanan", "Status"
+                "No", "Status", "Jumlah Pesanan", "Meja"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -73,6 +91,11 @@ public class ListPesananIndex extends javax.swing.JFrame {
         }
 
         btnHapus.setText("Hapus");
+        btnHapus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHapusMouseClicked(evt);
+            }
+        });
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusActionPerformed(evt);
@@ -80,6 +103,11 @@ public class ListPesananIndex extends javax.swing.JFrame {
         });
 
         btnEdit.setText("Edit");
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditMouseClicked(evt);
+            }
+        });
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
@@ -87,6 +115,11 @@ public class ListPesananIndex extends javax.swing.JFrame {
         });
 
         btnRefresh.setText("Refresh");
+        btnRefresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRefreshMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,10 +149,16 @@ public class ListPesananIndex extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 62, -1, 310));
 
-        btnMenu.setText("Menu");
+        btnMenu.setText("Dashboard");
+        btnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMenuMouseClicked(evt);
+            }
+        });
         getContentPane().add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -129,6 +168,28 @@ public class ListPesananIndex extends javax.swing.JFrame {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnRefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRefreshMouseClicked
+        // TODO add your handling code here:
+        controller.GetDataIndex(this);
+    }//GEN-LAST:event_btnRefreshMouseClicked
+
+    private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
+        // TODO add your handling code here:
+        controller.EditData(this);
+    }//GEN-LAST:event_btnEditMouseClicked
+
+    private void btnHapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusMouseClicked
+        // TODO add your handling code here:
+        controller.hapusData(this);
+    }//GEN-LAST:event_btnHapusMouseClicked
+
+    private void btnMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseClicked
+        // TODO add your handling code here:
+        Dashboard dash = new Dashboard();
+        dash.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnMenuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -178,4 +239,6 @@ public class ListPesananIndex extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPesanan;
     // End of variables declaration//GEN-END:variables
+
+    
 }

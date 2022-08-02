@@ -5,6 +5,7 @@
 package Resto.team.pbo.test;
 
 import Resto.team.pbo.connection.DataBaseConnection;
+import Resto.team.pbo.controller.ListPesananController;
 import Resto.team.pbo.controller.PesananController;
 import Resto.team.pbo.helper.MakananArray;
 
@@ -19,7 +20,7 @@ import java.sql.SQLException;
  */
 public class test {
     public static void main(String[] args){
-        
-        
+        ListPesananController Listpesan = new ListPesananController();
+//        Listpesan.GetDataIndex();
     }
 }
