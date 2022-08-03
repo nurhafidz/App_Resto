@@ -75,8 +75,10 @@ public class PesananModel {
     public void insertOrderFood(int orderId,String[][] inserOrder_Food){
         try{
             Connection con = connect.getConnection();
+            this.updateMakanStock(inserOrder_Food);
             String valueQuery = "";
             for(int i = 0; i < inserOrder_Food.length; i++){
+                
                 String ChildValueQuery = "('"+orderId+"','"+inserOrder_Food[i][1]+"','"+inserOrder_Food[i][3]+"','"+inserOrder_Food[i][4]+"')";
                 if(i < inserOrder_Food.length-1) valueQuery = valueQuery+ChildValueQuery+",";
                 else valueQuery = valueQuery+ChildValueQuery;
@@ -113,6 +115,25 @@ public class PesananModel {
         try{
             Connection con = connect.getConnection();
             String query = "UPDATE `table` SET `status`='Tidak Tersedia' WHERE `table_code` = '"+idMeja+"'";
+            this.setPs(con.prepareStatement(query));
+            this.ps.execute();
+            connect.CloseConnection();
+        }catch(SQLException ex){
+            System.out.println(ex);
+        }
+    }
+    public void updateMakanStock(String[][] inserOrder_Food){
+        try{
+            MakananArray arrMakanan = new MakananArray();
+            Connection con = connect.getConnection();
+            String query = "";
+            for(int i = 0; i < inserOrder_Food.length; i++){
+                String[][] dataMakanan = arrMakanan.GetSelectedMakanan(inserOrder_Food[i][1]);
+                int stock = Integer.valueOf(dataMakanan[0][6]) - Integer.valueOf(inserOrder_Food[i][3]);
+                String ChildValueQuery = "UPDATE `food` SET `stock` = '"+stock+"' WHERE `food_code` = '"+inserOrder_Food[i][1]+"';";
+                query = query+ChildValueQuery;
+            }
+            
             this.setPs(con.prepareStatement(query));
             this.ps.execute();
             connect.CloseConnection();

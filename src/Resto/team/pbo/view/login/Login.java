@@ -7,6 +7,7 @@ package Resto.team.pbo.view.login;
 
 import Resto.team.pbo.controller.LoginController;
 import Resto.team.pbo.model.LoginModel;
+import Resto.team.pbo.view.pesanan.MenuPesanan;
 import java.awt.Color;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -67,6 +68,7 @@ public class Login extends javax.swing.JFrame {
         btnSignUp = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        btnKembali = new javax.swing.JLabel();
         btnExit = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -183,6 +185,18 @@ public class Login extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 230, 320));
 
+        btnKembali.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resto/team/pbo/asset/image/close.png"))); // NOI18N
+        btnKembali.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnKembali.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnKembaliMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnKembaliMouseEntered(evt);
+            }
+        });
+        getContentPane().add(btnKembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
         btnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resto/team/pbo/asset/image/close.png"))); // NOI18N
         btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -285,6 +299,17 @@ public class Login extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnExitMouseEntered
 
+    private void btnKembaliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKembaliMouseClicked
+        // TODO add your handling code here:
+        MenuPesanan menu = new MenuPesanan();
+        this.setVisible(false);
+        menu.setVisible(true);
+    }//GEN-LAST:event_btnKembaliMouseClicked
+
+    private void btnKembaliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKembaliMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnKembaliMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -323,6 +348,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnExit;
+    private javax.swing.JLabel btnKembali;
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel btnSignUp;
     private javax.swing.JLabel jLabel1;
