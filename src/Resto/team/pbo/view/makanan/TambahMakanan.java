@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.FileSystems;
 import java.util.Iterator;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -192,11 +193,10 @@ public class TambahMakanan extends javax.swing.JFrame {
         if(returnValue == JFileChooser.APPROVE_OPTION){
             try{
                 originalBI = ImageIO.read(openFileChooser.getSelectedFile());
-                 String[] arrOfStr = openFileChooser.getSelectedFile().getName().split(".", 2);
-                 String formatName = arrOfStr[1];
-                BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-                File output = new File(getClass().getResource("../asset/image/") + openFileChooser.getSelectedFile().getName());
-                ImageIO.write(image, formatName, output);
+                String[] arrOfStr = openFileChooser.getSelectedFile().getName().split(".", 2);
+                String formatName = arrOfStr[1];
+                File output2 = new File(FileSystems.getDefault().getPath(new String()).toAbsolutePath()+"\\src\\Resto\\team\\pbo\\asset\\image\\" + openFileChooser.getSelectedFile().getName());
+                ImageIO.write(originalBI, "png", output2);
                 tfGambar.setText(openFileChooser.getSelectedFile().getName());
             }catch(IOException ex){
                 tfGambar.setText("Failed");
