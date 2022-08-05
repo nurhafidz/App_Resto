@@ -53,6 +53,26 @@ public class PesananController {
 
     public void viewMenu(TambahPesanan view) {}
     
+    public void setKategori(TambahPesanan view){
+        switch(view.getCbKategori().getSelectedItem().toString()){
+            case "-":
+                view.getCbMenuMakanan().setModel(new DefaultComboBoxModel<>(this.setMakanan()));
+            break;
+            case "makanan":
+                view.getCbMenuMakanan().setModel(new DefaultComboBoxModel<>(this.setMakananbyKat("makanan")));
+            break;
+            case "minuman":
+                view.getCbMenuMakanan().setModel(new DefaultComboBoxModel<>(this.setMakananbyKat("minuman")));
+            break;
+            case "snack":
+                view.getCbMenuMakanan().setModel(new DefaultComboBoxModel<>(this.setMakananbyKat("snack")));
+            break;
+            case "paket":
+                view.getCbMenuMakanan().setModel(new DefaultComboBoxModel<>(this.setMakananbyKat("paket")));
+            break;
+        }
+    }
+    
     public String[] setMakanan() {
         String[][] getMakanan = model.getMakanan().GetAllMakanan();
 
@@ -62,9 +82,19 @@ public class PesananController {
             String dat = getMakanan[i][1];
             data[i] = dat;
         }
-
         return data;
+    }
+    
+    public String[] setMakananbyKat(String kategori) {
+        String[][] getMakanan = model.getMakanan().CustomQueryMakanan("SELECT * FROM `food` WHERE `category` = '"+kategori+"'");
 
+        String[] data = new String[model.getMakanan().getRows()];
+
+        for (int i = 0; i < model.getMakanan().getRows(); i++) {
+            String dat = getMakanan[i][1];
+            data[i] = dat;
+        }
+        return data;
     }
     
     public String[] setTDuduk() {

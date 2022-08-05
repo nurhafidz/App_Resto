@@ -96,6 +96,11 @@ public class TambahPesanan extends javax.swing.JFrame {
     public JLabel getTxtJumlahBayar() {
         return txtJumlahBayar;
     }
+
+    public JComboBox<String> getCbKategori() {
+        return cbKategori;
+    }
+    
     
     
     
@@ -137,6 +142,8 @@ public class TambahPesanan extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         cbTDuduk = new javax.swing.JComboBox<>();
         btnLoadData = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cbKategori = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -156,10 +163,10 @@ public class TambahPesanan extends javax.swing.JFrame {
                 cbMenuMakananKeyReleased(evt);
             }
         });
-        getContentPane().add(cbMenuMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 460, -1));
+        getContentPane().add(cbMenuMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 460, -1));
 
         jLabel1.setText("Menu");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Keterangan"));
 
@@ -223,29 +230,29 @@ public class TambahPesanan extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, -1, 560));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, -1, 590));
 
         jLabel7.setText("Banyak");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
         tfBanyak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfBanyakActionPerformed(evt);
             }
         });
-        getContentPane().add(tfBanyak, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 80, -1));
+        getContentPane().add(tfBanyak, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 80, -1));
 
         jLabel8.setText("Catatan");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
 
         taCatatan.setColumns(20);
         taCatatan.setRows(5);
         jScrollPane1.setViewportView(taCatatan);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 460, 108));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 460, 108));
 
         btnTambah.setText("Tambah");
         btnTambah.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -253,7 +260,7 @@ public class TambahPesanan extends javax.swing.JFrame {
                 btnTambahMouseClicked(evt);
             }
         });
-        getContentPane().add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 320, -1, -1));
+        getContentPane().add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, -1, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("List Pesanan"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -453,7 +460,18 @@ public class TambahPesanan extends javax.swing.JFrame {
         });
         jPanel2.add(btnLoadData, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 530, 320));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 530, 320));
+
+        jLabel9.setText("Kategori");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+
+        cbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "makanan", "minuman", "snack", "paket" }));
+        cbKategori.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbKategoriItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(cbKategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 460, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -508,6 +526,11 @@ public class TambahPesanan extends javax.swing.JFrame {
         controller.HapusPesanan(this);
     }//GEN-LAST:event_btnHapusPesananMouseClicked
 
+    private void cbKategoriItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbKategoriItemStateChanged
+        // TODO add your handling code here:
+        controller.setKategori(this);
+    }//GEN-LAST:event_cbKategoriItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -548,6 +571,7 @@ public class TambahPesanan extends javax.swing.JFrame {
     private javax.swing.JButton btnHapusPesanan;
     private javax.swing.JButton btnLoadData;
     private javax.swing.JButton btnTambah;
+    private javax.swing.JComboBox<String> cbKategori;
     private javax.swing.JComboBox<String> cbMenuMakanan;
     private javax.swing.JComboBox<String> cbTDuduk;
     private javax.swing.JButton jButton2;
@@ -560,6 +584,7 @@ public class TambahPesanan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -574,4 +599,6 @@ public class TambahPesanan extends javax.swing.JFrame {
     private javax.swing.JLabel txtNamaMakanan;
     private javax.swing.JLabel txtStatus;
     // End of variables declaration//GEN-END:variables
+
+    
 }

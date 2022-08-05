@@ -45,7 +45,6 @@ public class LoginController {
             Class.forName("com.mysql.jdbc.Driver");
             conn=DriverManager.getConnection("jdbc:mysql://localhost/db_resto","root","");
             st=conn.createStatement();
-            JOptionPane.showMessageDialog(null, "Berhasil Koneksi");
             }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null,"Gagal terkoneksi Karena " + ex);

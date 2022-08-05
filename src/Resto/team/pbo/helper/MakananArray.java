@@ -74,6 +74,7 @@ public class MakananArray {
                 return newArray;
         }
     }
+    
     public String[][] GetSelectedMakanan(String Code_food){
         DataBaseConnection connect = new DataBaseConnection();
         try{

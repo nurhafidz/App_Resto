@@ -6,6 +6,7 @@
 package Resto.team.pbo.view.login;
 
 import Resto.team.pbo.view.listPesanan.ListPesananIndex;
+import Resto.team.pbo.view.table.indexTable;
 import java.awt.Color;
 
 /**
@@ -331,6 +332,9 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void btnList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnList1MouseClicked
         // TODO add your handling code here:
+        indexTable indexMeja = new indexTable();
+        indexMeja.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnList1MouseClicked
 
     private void btnListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListMouseClicked

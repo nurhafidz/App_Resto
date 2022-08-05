@@ -4,10 +4,13 @@
  */
 package Resto.team.pbo.model;
 
+import Resto.team.pbo.connection.DataBaseConnection;
 import Resto.team.pbo.helper.MakananArray;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -51,14 +54,49 @@ public class MakananModel {
         return newArray;
     
     }
+    public List<ListMakanan> ListSemuaMakanan(){
+        
+          try{
+            DataBaseConnection connect = new DataBaseConnection();
+            List<ListMakanan> food = new ArrayList<ListMakanan>();
+        
+        String query = "SELECT * FROM `food` ";
+        Connection consts = connect.getConnection();
+       
+        this.setPs(consts.prepareCall(query));
+            this.ps.execute();
+            this.setRs(ps.executeQuery());
+            while (rs.next()){
+                ListMakanan hasil = new ListMakanan();
+                hasil.Food_Code = rs.getString("food_code");
+                hasil.Name = rs.getString("name");
+                hasil.Description = rs.getString("description");
+                hasil.Image = rs.getString("image");
+                hasil.Price = rs.getInt("price");
+                hasil.Category = rs.getString("category");
+                hasil.Stock = rs.getInt("stock");
+                food.add(hasil);
+                
+            }    
+            return food;
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+          
+    }
+    public void tambahMakanan(ListMakanan dataMakanan){
+        try{
+            DataBaseConnection connect = new DataBaseConnection();
+            String valuequery="('"+dataMakanan.Food_Code+"','"+dataMakanan.Name+"','"+dataMakanan.Description+"','"+dataMakanan.Image+"','"+dataMakanan.Price+"','"+dataMakanan.Category+"','"+dataMakanan.Stock+"')";
+        String query = "INSERT INTO `food`(`food_code`, `name`, `description`, `image`, `price`, `category`, `stock`) VALUES  "+valuequery;
+        Connection consts = connect.getConnection();
+       
+        this.setPs(consts.prepareCall(query));
+        this.ps.execute();
+        }catch(Exception e){
+            System.out.println(e);
     
-    
-//    public void select(){
-//        String [][]newArray = makanan.GetAllMakanan();
-//        for(int i = 0; i < makanan.getRows(); i++){
-//            for(int j = 0; j < makanan.getColumns(); j++){
-//                System.out.println(newArray[i][j]);
-//            }
-//        }
-//    }
+        }
+    }
 }
