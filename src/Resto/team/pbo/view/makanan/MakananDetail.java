@@ -5,6 +5,14 @@
  */
 package Resto.team.pbo.view.makanan;
 
+import Resto.team.pbo.controller.MakananController;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.file.FileSystems;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
 /**
  *
  * @author ASUS
@@ -14,8 +22,74 @@ public class MakananDetail extends javax.swing.JFrame {
     /**
      * Creates new form listfood
      */
+    private MakananController controller;
+
     public MakananDetail() {
         initComponents();
+
+    }
+
+    public MakananDetail(String kode) {
+        initComponents();
+        controller = new MakananController();
+        controller.detail(this, kode);
+    }
+
+    public void setTxCodeMakanan(String txCodeMakanan) {
+        this.txDeskripsi.setText(txCodeMakanan);
+    }
+
+    public void setTxKategori(String txKategori) {
+        this.txKategori.setText(txKategori);
+    }
+
+    public void setTxlNamaMakanan(String txlNamaMakanan) {
+        this.txlNamaMakanan.setText(txlNamaMakanan);
+    }
+
+    public void setTxtGambar(String txtGambar) {
+        String path = FileSystems.getDefault().getPath(new String()).toAbsolutePath() + "\\src\\Resto\\team\\pbo\\asset\\image\\" + txtGambar;
+        this.txtGambar.setIcon(new ImageIcon(path));
+    }
+
+    public void setTxtHarga(String txtHarga) {
+        this.txtHarga.setText(txtHarga);
+    }
+
+    public void setTxtStock(String txtStock) {
+        this.txtStock.setText(txtStock);
+    }
+
+    public JLabel getTxCodeMakanan() {
+        return txDeskripsi;
+    }
+
+    public JLabel getTxDeskripsi() {
+        return txDeskripsi;
+    }
+
+    public void setTxDeskripsi(String txDeskripsi) {
+        this.txDeskripsi.setText(txDeskripsi);
+    }
+
+    public JLabel getTxKategori() {
+        return txKategori;
+    }
+
+    public JLabel getTxlNamaMakanan() {
+        return txlNamaMakanan;
+    }
+
+    public JLabel getTxtGambar() {
+        return txtGambar;
+    }
+
+    public JLabel getTxtHarga() {
+        return txtHarga;
+    }
+
+    public JLabel getTxtStock() {
+        return txtStock;
     }
 
     /**
@@ -30,9 +104,9 @@ public class MakananDetail extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtHarga = new javax.swing.JLabel();
-        txlCodeMakanan = new javax.swing.JLabel();
-        lblNamaMakanan = new javax.swing.JLabel();
-        lblKategori = new javax.swing.JLabel();
+        txDeskripsi = new javax.swing.JLabel();
+        txlNamaMakanan = new javax.swing.JLabel();
+        txKategori = new javax.swing.JLabel();
         txtStock = new javax.swing.JLabel();
         txtGambar = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -40,8 +114,10 @@ public class MakananDetail extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        setTxCodeMakanan = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -51,46 +127,55 @@ public class MakananDetail extends javax.swing.JFrame {
         jLabel1.setText("List Makanan");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
 
-        txtHarga.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtHarga.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtHarga.setText("Harga");
-        getContentPane().add(txtHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 390, -1, -1));
+        getContentPane().add(txtHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, -1, -1));
 
-        txlCodeMakanan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        txlCodeMakanan.setText("Code Makanan");
-        getContentPane().add(txlCodeMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 100, -1, -1));
+        txDeskripsi.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txDeskripsi.setText("Deskripsi");
+        txDeskripsi.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        getContentPane().add(txDeskripsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, 270, 180));
 
-        lblNamaMakanan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblNamaMakanan.setText("Nama Makanan");
-        getContentPane().add(lblNamaMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 170, -1, -1));
+        txlNamaMakanan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txlNamaMakanan.setText("Nama Makanan");
+        getContentPane().add(txlNamaMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 130, -1, -1));
 
-        lblKategori.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblKategori.setText("Kategori");
-        getContentPane().add(lblKategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 250, -1, -1));
+        txKategori.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txKategori.setText("Kategori");
+        getContentPane().add(txKategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, -1, -1));
 
-        txtStock.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtStock.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtStock.setText("Stok");
-        getContentPane().add(txtStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 320, -1, -1));
+        getContentPane().add(txtStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, -1, -1));
         getContentPane().add(txtGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 350, 330));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel8.setText("Code Makanan");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, -1, -1));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setText("Deskripsi");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("Nama Makanan");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("Kategori");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setText("Stok");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 320, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setText("Harga");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 390, -1, -1));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 220, -1, -1));
+
+        setTxCodeMakanan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        setTxCodeMakanan.setText("Code Makanan");
+        getContentPane().add(setTxCodeMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 100, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel13.setText("Code Makanan");
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -128,6 +213,14 @@ public class MakananDetail extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -142,12 +235,14 @@ public class MakananDetail extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblKategori;
-    private javax.swing.JLabel lblNamaMakanan;
-    private javax.swing.JLabel txlCodeMakanan;
+    private javax.swing.JLabel setTxCodeMakanan;
+    private javax.swing.JLabel txDeskripsi;
+    private javax.swing.JLabel txKategori;
+    private javax.swing.JLabel txlNamaMakanan;
     private javax.swing.JLabel txtGambar;
     private javax.swing.JLabel txtHarga;
     private javax.swing.JLabel txtStock;

@@ -144,6 +144,7 @@ public class TambahPesanan extends javax.swing.JFrame {
         btnLoadData = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         cbKategori = new javax.swing.JComboBox<>();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -151,7 +152,7 @@ public class TambahPesanan extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Menu Makanan");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 25, 970, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(106, 25, 770, -1));
 
         cbMenuMakanan.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -473,6 +474,14 @@ public class TambahPesanan extends javax.swing.JFrame {
         });
         getContentPane().add(cbKategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 460, -1));
 
+        btnBack.setText("Menu");
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBackMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -531,6 +540,13 @@ public class TambahPesanan extends javax.swing.JFrame {
         controller.setKategori(this);
     }//GEN-LAST:event_cbKategoriItemStateChanged
 
+    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        MenuPesanan menu = new MenuPesanan();
+        menu.setVisible(true);
+    }//GEN-LAST:event_btnBackMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -567,6 +583,7 @@ public class TambahPesanan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnEditPesanan;
     private javax.swing.JButton btnHapusPesanan;
     private javax.swing.JButton btnLoadData;

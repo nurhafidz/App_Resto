@@ -5,18 +5,60 @@
  */
 package Resto.team.pbo.view.makanan;
 
+import Resto.team.pbo.connection.DataBaseConnection;
+import Resto.team.pbo.controller.MakananController;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author ASUS
  */
 public class EditMakanan extends javax.swing.JFrame {
 
-    /**
-     * Creates new form newfoodview
-     */
-    public EditMakanan() {
-        initComponents();
+    private MakananController controller;
+    private JFileChooser openFileChooser;
+    private BufferedImage originalBI;
+    
+    
+    public EditMakanan(){
+                initComponents(); 
+        controller = new MakananController();
+        
+        openFileChooser = new JFileChooser();
+        openFileChooser.setCurrentDirectory(new File("c:\\temp"));
+        openFileChooser.setFileFilter(new FileNameExtensionFilter("PNG images","png","JPG images","JPG"));
+    
     }
+    private String kode;
+    public EditMakanan(String kode) {
+        initComponents(); 
+        this.kode = kode;
+        controller = new MakananController();
+        
+        openFileChooser = new JFileChooser();
+        openFileChooser.setCurrentDirectory(new File("c:\\temp"));
+        openFileChooser.setFileFilter(new FileNameExtensionFilter("PNG images","png","JPG images","JPG"));
+       
+        controller.editbaru(this, kode);
+    
+    }
+
+    public JComboBox<String> getCbKategori() {
+        return CbKategori;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,6 +69,7 @@ public class EditMakanan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -38,15 +81,18 @@ public class EditMakanan extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         tfCodeMakanan = new javax.swing.JTextField();
         tfNamaMakanan = new javax.swing.JTextField();
-        tfKategori = new javax.swing.JTextField();
         tfStock = new javax.swing.JTextField();
         tfHarga = new javax.swing.JTextField();
         tfGambar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         taDeskripsi = new javax.swing.JTextArea();
-        btnTambah = new javax.swing.JButton();
+        btnPilihGambar = new javax.swing.JButton();
+        btnEdit1 = new javax.swing.JButton();
+        CbKategori = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jButton1.setText("jButton1");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -85,7 +131,6 @@ public class EditMakanan extends javax.swing.JFrame {
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, -1, -1));
         getContentPane().add(tfCodeMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 470, 60));
         getContentPane().add(tfNamaMakanan, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 470, 60));
-        getContentPane().add(tfKategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 470, 60));
 
         tfStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,7 +139,7 @@ public class EditMakanan extends javax.swing.JFrame {
         });
         getContentPane().add(tfStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 470, 60));
         getContentPane().add(tfHarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 430, 470, 60));
-        getContentPane().add(tfGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, 470, 60));
+        getContentPane().add(tfGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, 330, 60));
 
         taDeskripsi.setColumns(20);
         taDeskripsi.setRows(5);
@@ -102,14 +147,36 @@ public class EditMakanan extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 580, 470, 140));
 
-        btnTambah.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        btnTambah.setText("Tambah");
-        btnTambah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTambahActionPerformed(evt);
+        btnPilihGambar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnPilihGambar.setText("PILIH");
+        btnPilihGambar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPilihGambarMouseClicked(evt);
             }
         });
-        getContentPane().add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 730, 180, 60));
+        btnPilihGambar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPilihGambarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPilihGambar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 500, 140, 60));
+
+        btnEdit1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnEdit1.setText("Edit");
+        btnEdit1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEdit1MouseClicked(evt);
+            }
+        });
+        btnEdit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEdit1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEdit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 730, 180, 60));
+
+        CbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Minuman", "Snack", "Paket" }));
+        getContentPane().add(CbKategori, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 470, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -118,9 +185,46 @@ public class EditMakanan extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfStockActionPerformed
 
-    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+    private void btnPilihGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPilihGambarActionPerformed
+             int returnValue = openFileChooser.showOpenDialog(this);
+        if(returnValue == JFileChooser.APPROVE_OPTION){
+            try{
+                originalBI = ImageIO.read(openFileChooser.getSelectedFile());   
+                String[] arrOfStr = openFileChooser.getSelectedFile().getName().split(".", 2);
+                String formatName = arrOfStr[1];
+                File output2 = new File(FileSystems.getDefault().getPath(new String()).toAbsolutePath()+"\\src\\Resto\\team\\pbo\\asset\\image\\" + openFileChooser.getSelectedFile().getName());
+                ImageIO.write(originalBI, "png", output2);
+                tfGambar.setText(openFileChooser.getSelectedFile().getName());
+            }catch(IOException ex){
+                tfGambar.setText("Failed");
+            }
+        }
+        else{
+            tfGambar.setText("No file chosen!");
+        }
+              
+              
+             
+        
+    }//GEN-LAST:event_btnPilihGambarActionPerformed
+
+    private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit1ActionPerformed
+       
+    }//GEN-LAST:event_btnEdit1ActionPerformed
+
+    private void btnPilihGambarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPilihGambarMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTambahActionPerformed
+        
+    }//GEN-LAST:event_btnPilihGambarMouseClicked
+
+    private void btnEdit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEdit1MouseClicked
+        // TODO add your handling code here:
+        controller.editMakanan(this,kode);
+    }//GEN-LAST:event_btnEdit1MouseClicked
+
+    public JTextArea getTaDeskripsi() {
+        return taDeskripsi;
+    }
 
     /**
      * @param args the command line arguments
@@ -172,8 +276,37 @@ public class EditMakanan extends javax.swing.JFrame {
         });
     }
 
+    public JTextField getTfCodeMakanan() {
+        return tfCodeMakanan;
+    }
+
+    public JTextField getTfGambar() {
+        return tfGambar;
+    }
+
+    public JTextField getTfHarga() {
+        return tfHarga;
+    }
+
+    public JComboBox<String> getjComboBox1() {
+        return CbKategori;
+    }
+
+    
+
+    public JTextField getTfNamaMakanan() {
+        return tfNamaMakanan;
+    }
+
+    public JTextField getTfStock() {
+        return tfStock;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnTambah;
+    private javax.swing.JComboBox<String> CbKategori;
+    private javax.swing.JButton btnEdit1;
+    private javax.swing.JButton btnPilihGambar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -188,7 +321,6 @@ public class EditMakanan extends javax.swing.JFrame {
     private javax.swing.JTextField tfCodeMakanan;
     private javax.swing.JTextField tfGambar;
     private javax.swing.JTextField tfHarga;
-    private javax.swing.JTextField tfKategori;
     private javax.swing.JTextField tfNamaMakanan;
     private javax.swing.JTextField tfStock;
     // End of variables declaration//GEN-END:variables

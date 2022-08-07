@@ -6,6 +6,7 @@
 package Resto.team.pbo.view.login;
 
 import Resto.team.pbo.view.listPesanan.ListPesananIndex;
+import Resto.team.pbo.view.makanan.MakananIndex;
 import Resto.team.pbo.view.table.indexTable;
 import java.awt.Color;
 
@@ -123,6 +124,9 @@ public class Dashboard extends javax.swing.JFrame {
 
         btnMenu.setBackground(new java.awt.Color(26, 128, 179));
         btnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnMenuMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMenuMouseEntered(evt);
             }
@@ -343,6 +347,13 @@ public class Dashboard extends javax.swing.JFrame {
         this.setVisible(false);
         listIndex.setVisible(true);
     }//GEN-LAST:event_btnListMouseClicked
+
+    private void btnMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        MakananIndex mak = new MakananIndex();
+        mak.setVisible(true);
+    }//GEN-LAST:event_btnMenuMouseClicked
 
     /**
      * @param args the command line arguments

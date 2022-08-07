@@ -99,4 +99,48 @@ public class MakananModel {
     
         }
     }
+    public List<ListMakanan>ListDetail(String kode){
+          try{
+            DataBaseConnection connect = new DataBaseConnection();
+            List<ListMakanan> food = new ArrayList<ListMakanan>();
+        
+        String query = "SELECT * FROM `food` WHERE food_code ='"+kode+"'";
+        Connection consts = connect.getConnection();
+       
+        this.setPs(consts.prepareCall(query));
+            this.ps.execute();
+            this.setRs(ps.executeQuery());
+            while (rs.next()){
+                ListMakanan hasil = new ListMakanan();
+                hasil.Food_Code = rs.getString("food_code");
+                hasil.Name = rs.getString("name");
+                hasil.Description = rs.getString("description");
+                hasil.Image = rs.getString("image");
+                hasil.Price = rs.getInt("price");
+                hasil.Category = rs.getString("category");
+                hasil.Stock = rs.getInt("stock");
+                food.add(hasil);
+                
+            }    
+            return food;
+        }catch(Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+        
+    public void editMakanan(ListMakanan editbaru,String kode) {
+      try{
+
+          DataBaseConnection connect = new DataBaseConnection();
+          String valuequery = "('"+editbaru.Food_Code+"','"+editbaru.Name+"','"+editbaru.Description+"',"+editbaru.Image+"',"+editbaru.Price+"','"+editbaru.Category+"','"+editbaru.Stock+"')";
+        String query ="UPDATE `food`SET `food_code`='"+editbaru.Food_Code+"',`name`='"+editbaru.Name+"',`description`='"+editbaru.Description+"',`image`='"+editbaru.Image+"',`price`='"+editbaru.Price+"',`category`='"+editbaru.Category+"',`stock`='"+editbaru.Stock+"'WHERE `food_code`='" +kode+"';";
+       Connection consts = connect.getConnection();
+       
+       this.setPs(consts.prepareCall(query));
+       this.ps.execute();
+      }  catch(Exception e){
+          System.out.println(e);
+      }
+    }
 }

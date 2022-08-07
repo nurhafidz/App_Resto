@@ -37,8 +37,7 @@ public class ListPesananMakananController {
         if(hitung == 0){
             int count = 1 ;
             for(int i = 0;i< data.size();i++){
-                tabelRow.addRow(new Object[]{String.valueOf(count),String.valueOf(data.get(i).ID),data.get(i).Nama_Menu,String.valueOf(data.get(i).Qty)});
-                catatan = data.get(i).Note;
+                tabelRow.addRow(new Object[]{String.valueOf(count),String.valueOf(data.get(i).ID),data.get(i).Nama_Menu,String.valueOf(data.get(i).Qty) ,"<html>" + data.get(i).Note + "</html>"});
             }
         }
     }
@@ -48,10 +47,9 @@ public class ListPesananMakananController {
         view.getTxtStatus().setText(data.get(0).Status);
         view.getTxtMeja().setText(data.get(0).Meja);
         view.getTxtTgl().setText(data.get(0).Tgl);
-        view.getTxtCatatan().setText(catatan);
-        if(data.get(0).Status.equals("waiting payment")){
+        if(data.get(0).Status.equals("menunggu pembayaran")){
             view.getBtnBayarOrSelesai().setText("Bayar");
-        } else if(data.get(0).Status.equals("proces")){
+        } else if(data.get(0).Status.equals("proses")){
             view.getBtnBayarOrSelesai().setText("Selesai");
         } else {
             view.getBtnBayarOrSelesai().setVisible(false);
@@ -67,7 +65,7 @@ public class ListPesananMakananController {
     }
     public void bayarPesanan(DetailListPesanan view){
         try{
-            model.updateStatusPesanan(id, "proces");
+            model.updateStatusPesanan(id, "proses");
             JOptionPane.showMessageDialog(view,"Data Berhasil di Update");
             this.setDetailPesanan(view);
         }
@@ -77,7 +75,7 @@ public class ListPesananMakananController {
     }
     public void selesaiPesanan(DetailListPesanan view){
         try{
-            model.updateStatusPesanan(id, "done");
+            model.updateStatusPesanan(id, "selesai");
             JOptionPane.showMessageDialog(view,"Data Berhasil di Update");
             this.setDetailPesanan(view);
         }

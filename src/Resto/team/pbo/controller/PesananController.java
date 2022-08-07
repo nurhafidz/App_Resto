@@ -257,7 +257,7 @@ public class PesananController {
                 String[] dataOrder = new String[4];
                 dataOrder[0]=mejaData[0][0].toString();
                 dataOrder[1]=jumlahPembayaran[1];
-                dataOrder[2]="waiting payment";
+                dataOrder[2]="menunggu pembayaran";
                 
                 pesananModel.insertOrderFoodAndOrder(dataOrder,listPesanan);
                 this.resetInputPesan(view);

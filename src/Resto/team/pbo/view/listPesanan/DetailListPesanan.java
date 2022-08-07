@@ -44,9 +44,7 @@ public class DetailListPesanan extends javax.swing.JFrame {
         return txtBayar;
     }
 
-    public JLabel getTxtCatatan() {
-        return txtCatatan;
-    }
+    
 
     public JLabel getTxtMeja() {
         return txtMeja;
@@ -84,10 +82,8 @@ public class DetailListPesanan extends javax.swing.JFrame {
         txtStatus = new javax.swing.JLabel();
         txtBayar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtCatatan = new javax.swing.JLabel();
         btnBayarOrSelesai = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         txtMeja = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtTgl = new javax.swing.JLabel();
@@ -95,7 +91,7 @@ public class DetailListPesanan extends javax.swing.JFrame {
         btnTutup = new javax.swing.JButton();
         btnCetak = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -106,17 +102,17 @@ public class DetailListPesanan extends javax.swing.JFrame {
 
         tblPesananM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "No", "Id Pesanan", "Menu Pesanan", "Jumlah pesanan"
+                "No", "Id Pesanan", "Menu Pesanan", "Jumlah pesanan", "Catatan"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -130,25 +126,23 @@ public class DetailListPesanan extends javax.swing.JFrame {
             tblPesananM.getColumnModel().getColumn(1).setResizable(false);
             tblPesananM.getColumnModel().getColumn(1).setPreferredWidth(100);
             tblPesananM.getColumnModel().getColumn(2).setResizable(false);
-            tblPesananM.getColumnModel().getColumn(2).setPreferredWidth(410);
+            tblPesananM.getColumnModel().getColumn(2).setPreferredWidth(200);
             tblPesananM.getColumnModel().getColumn(3).setResizable(false);
             tblPesananM.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblPesananM.getColumnModel().getColumn(4).setResizable(false);
+            tblPesananM.getColumnModel().getColumn(4).setPreferredWidth(500);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 240));
 
         txtStatus.setText("di bayar");
-        jPanel1.add(txtStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 120, -1));
+        jPanel1.add(txtStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 290, -1));
 
         txtBayar.setText("Rp 0");
         jPanel1.add(txtBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 130, -1));
 
         jLabel4.setText("Jumlah yang harus di bayar");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
-
-        txtCatatan.setText("Catatan");
-        txtCatatan.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jPanel1.add(txtCatatan, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 370, 110));
 
         btnBayarOrSelesai.setText("BAYAR");
         btnBayarOrSelesai.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,13 +158,10 @@ public class DetailListPesanan extends javax.swing.JFrame {
                 btnBayarOrSelesaiActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBayarOrSelesai, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, 120, -1));
+        jPanel1.add(btnBayarOrSelesai, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, 120, -1));
 
         jLabel6.setText("Status");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
-
-        jLabel7.setText("Catatan");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, -1, -1));
 
         txtMeja.setText("M1");
         jPanel1.add(txtMeja, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 120, -1));
@@ -184,7 +175,7 @@ public class DetailListPesanan extends javax.swing.JFrame {
         jLabel11.setText("Tanggal Pembelian");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 600, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 55, 710, 400));
 
         btnTutup.setText("Tutup");
         btnTutup.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -205,7 +196,7 @@ public class DetailListPesanan extends javax.swing.JFrame {
                 btnCetakActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, -1));
+        getContentPane().add(btnCetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -284,13 +275,11 @@ public class DetailListPesanan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPesananM;
     private javax.swing.JLabel txtBayar;
-    private javax.swing.JLabel txtCatatan;
     private javax.swing.JLabel txtMeja;
     private javax.swing.JLabel txtStatus;
     private javax.swing.JLabel txtTgl;

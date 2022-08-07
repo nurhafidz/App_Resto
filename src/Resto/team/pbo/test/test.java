@@ -8,6 +8,7 @@ import Resto.team.pbo.connection.DataBaseConnection;
 import Resto.team.pbo.controller.ListPesananController;
 import Resto.team.pbo.controller.PesananController;
 import Resto.team.pbo.helper.MakananArray;
+import Resto.team.pbo.model.MakananModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ import java.sql.SQLException;
  */
 public class test {
     public static void main(String[] args){
-        ListPesananController Listpesan = new ListPesananController();
+        MakananModel makanan = new MakananModel();
 //        Listpesan.GetDataIndex();
     }
 }

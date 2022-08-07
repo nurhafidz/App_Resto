@@ -5,11 +5,15 @@
  */
 package Resto.team.pbo.view.makanan;
 
+import Resto.team.pbo.connection.DataBaseConnection;
 import Resto.team.pbo.controller.MakananController;
+import Resto.team.pbo.view.login.Dashboard;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +24,7 @@ public class MakananIndex extends javax.swing.JFrame {
   
     private MakananController controller;
     
-   
+   private String kode;
     
     public MakananIndex() {
         initComponents();
@@ -49,6 +53,7 @@ public class MakananIndex extends javax.swing.JFrame {
         btnEdit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMakanan = new javax.swing.JTable();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -103,6 +108,11 @@ public class MakananIndex extends javax.swing.JFrame {
 
         btnHapus.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btnHapus.setText("Hapus");
+        btnHapus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHapusMouseClicked(evt);
+            }
+        });
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHapusActionPerformed(evt);
@@ -117,14 +127,9 @@ public class MakananIndex extends javax.swing.JFrame {
                 btnEditMouseClicked(evt);
             }
         });
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 430, 140, 50));
 
-        tblMakanan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        tblMakanan.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tblMakanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -141,6 +146,11 @@ public class MakananIndex extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblMakanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMakananMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblMakanan);
         if (tblMakanan.getColumnModel().getColumnCount() > 0) {
             tblMakanan.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -152,9 +162,18 @@ public class MakananIndex extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 900, 310));
 
+        btnBack.setText("Dashboard");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
@@ -166,16 +185,12 @@ public class MakananIndex extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnDetailActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHapusActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnTambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTambahMouseClicked
         // TODO add your handling code here:
@@ -185,14 +200,14 @@ public class MakananIndex extends javax.swing.JFrame {
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
         // TODO add your handling code here:
-        EditMakanan edit = new EditMakanan();
+        EditMakanan edit = new EditMakanan(this.kode);
         edit.setVisible(true);
         
     }//GEN-LAST:event_btnEditMouseClicked
 
     private void btnDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDetailMouseClicked
         // TODO add your handling code here:
-        MakananDetail detail = new MakananDetail();
+        MakananDetail detail = new MakananDetail(kode);
         detail.setVisible(true);
     }//GEN-LAST:event_btnDetailMouseClicked
 
@@ -200,6 +215,26 @@ public class MakananIndex extends javax.swing.JFrame {
         // TODO add your handling code here:
         controller.tampilSemuaMakanan(this);
     }//GEN-LAST:event_btnRefreshMouseClicked
+
+    private void tblMakananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMakananMouseClicked
+        // TODO add your handling code here:
+
+            int row = tblMakanan.getSelectedRow();
+            this.kode =(tblMakanan.getModel().getValueAt(row,0).toString());
+            
+        
+    }//GEN-LAST:event_tblMakananMouseClicked
+
+    private void btnHapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusMouseClicked
+       controller.hapus(this.kode);
+    }//GEN-LAST:event_btnHapusMouseClicked
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        Dashboard dash = new Dashboard();
+        dash.setVisible(true);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,6 +263,8 @@ public class MakananIndex extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -238,6 +275,7 @@ public class MakananIndex extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDetail;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
