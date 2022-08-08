@@ -41,11 +41,16 @@ public class ListPesananController {
         }
     }
     public void EditData(ListPesananIndex view){
-        int row = view.getTblPesanan().getSelectedRow();
-        List<ListPesanan> data = model.orderSelected();
-        int value = data.get(row).ID ;
-        DetailListPesanan viewDetail = new DetailListPesanan(value);
-        viewDetail.setVisible(true);
+        try{
+            int row = view.getTblPesanan().getSelectedRow();
+            List<ListPesanan> data = model.orderSelected();
+            int value = data.get(row).ID ;
+            DetailListPesanan viewDetail = new DetailListPesanan(value);
+            viewDetail.setVisible(true);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(view,"Silahkan Pilih Baris Pada Tabel Terlebih Dahulu");
+        }
+        
     }
     public void hapusData(ListPesananIndex view){
         int row = view.getTblPesanan().getSelectedRow();

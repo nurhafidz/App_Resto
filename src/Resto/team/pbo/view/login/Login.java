@@ -184,7 +184,7 @@ public class Login extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 230, 320));
 
-        btnKembali.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resto/team/pbo/asset/image/191-1910545_back-button-circular-left-arrow-symbol-comments-circle.png"))); // NOI18N
+        btnKembali.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resto/team/pbo/asset/image/191-1910545_back-button-circular-left-arrow-symbol-comments-circle - Copy.png"))); // NOI18N
         btnKembali.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnKembali.setMaximumSize(new java.awt.Dimension(38, 38));
         btnKembali.setMinimumSize(new java.awt.Dimension(38, 38));

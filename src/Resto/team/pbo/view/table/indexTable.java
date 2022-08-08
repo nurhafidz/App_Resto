@@ -71,7 +71,7 @@ public class indexTable extends javax.swing.JFrame {
         jLabel1.setText("TAMPIL MEJA");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, -1, -1));
 
-        TableMeja.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        TableMeja.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         TableMeja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
