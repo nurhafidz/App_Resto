@@ -9,19 +9,25 @@ import Resto.team.pbo.controller.ListPesananController;
 import Resto.team.pbo.controller.PesananController;
 import Resto.team.pbo.helper.MakananArray;
 import Resto.team.pbo.model.MakananModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.print.PrinterException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Vector;
+
+import javax.swing.JTable;
+
 
 /**
  *
  * @author nurha
  */
 public class test {
+    
+    
     public static void main(String[] args){
-        MakananModel makanan = new MakananModel();
-//        Listpesan.GetDataIndex();
+        //Method called from Print Button
+        
     }
+    
 }

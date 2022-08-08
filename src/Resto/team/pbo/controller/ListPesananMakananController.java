@@ -6,8 +6,15 @@ package Resto.team.pbo.controller;
 
 import Resto.team.pbo.model.ListPesanan;
 import Resto.team.pbo.model.ListPesananMakanan;
+import Resto.team.pbo.model.ListPesananMakananWithHarga;
 import Resto.team.pbo.model.PesananModel;
 import Resto.team.pbo.view.listPesanan.DetailListPesanan;
+import Resto.team.pbo.view.listPesanan.PrintPage;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterJob;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +32,11 @@ public class ListPesananMakananController {
         model = new PesananModel();
         this.id = idData;
     }
+
+    public int getId() {
+        return id;
+    }
+    
     
     public void setValueTabel(DetailListPesanan view){
         List<ListPesananMakanan> data = model.getPesananMakananByIdOrder(id);
@@ -82,6 +94,46 @@ public class ListPesananMakananController {
         catch(Exception ex){
             System.out.println(ex);
         }
+    }
+    public void setValueTabelCetak(PrintPage view){
+        List<ListPesananMakananWithHarga> data = model.getPesananMakananByIdOrderWithHarga(id);
+        DefaultTableModel tabelRow = (DefaultTableModel) view.getTblMakanan().getModel();
+        int hitung = tabelRow.getRowCount();
+        while (hitung > 0){
+            tabelRow.removeRow(hitung-1);
+            hitung--;
+        }
+        int jml = 0;
+        if(hitung == 0){
+            for(int i = 0;i< data.size();i++){
+                int jumlahHarga = data.get(i).Harga*data.get(i).Qty;
+                jml += jumlahHarga;
+                tabelRow.addRow(new Object[]{data.get(i).Nama_Menu,String.valueOf(data.get(i).Qty) ,String.valueOf(data.get(i).Harga),String.valueOf(jumlahHarga)});
+            }
+        }
+        view.getLblId().setText(String.valueOf(id));
+        view.getLblTgl().setText(data.get(0).Tgl);
+        view.getLblTotal().setText(String.valueOf(jml));
+        
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setJobName("Print Data");
+        job.setPrintable(new Printable(){
+            public int print(Graphics pg,PageFormat pf,int pageNum){
+                if(pageNum > 0){
+                    return Printable.NO_SUCH_PAGE;
+                }
+                Graphics2D g2 = (Graphics2D)pg;
+                g2.translate(pf.getImageableX(), pf.getImageableY());
+                g2.scale(0.24, 0.24);
+                return Printable.PAGE_EXISTS;
+            }
+        });
+        try{
+            job.print();
+        }catch(Exception ex){
+            System.out.println(ex);
+        }
+        
     }
 
 }

@@ -213,6 +213,30 @@ public class PesananModel {
             return null;
         }
     }
+    public List<ListPesananMakananWithHarga> getPesananMakananByIdOrderWithHarga(int idOrder) {
+        try{
+            PreparedStatement stmt = conn.prepareStatement("SELECT *,(SELECT f.`name` FROM `food` f WHERE of.food_code = f.food_code)menuMakanan,(SELECT f.`price` FROM `food` f WHERE of.food_code = f.food_code)harga,(SELECT o.timestamp FROM `order` o WHERE of.order_code = o.order_code)tgl FROM `order_food` of WHERE order_code ='"+idOrder+"'");
+	    ResultSet rs = stmt.executeQuery();	   
+	    List<ListPesananMakananWithHarga> matches = new ArrayList<ListPesananMakananWithHarga>(); 
+	    while ( rs.next() ) {
+	        ListPesananMakananWithHarga listed = new ListPesananMakananWithHarga();
+	        listed.ID = rs.getInt("order_food_code");
+	        listed.Order_Code = rs.getInt("order_code");
+	        listed.Food_Code = rs.getString("food_code");
+	        listed.Nama_Menu = rs.getString("menuMakanan");
+	        listed.Qty = rs.getInt("qty");
+                listed.Note = rs.getString("note");
+                listed.Harga = rs.getInt("harga");
+                listed.Tgl = rs.getString("tgl");
+	        matches.add(listed);
+	    }
+	    return matches;
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+            return null;
+        }
+    }
     
     public void updateStatusPesanan(int idOrder, String message) throws SQLException{
         PreparedStatement stmt = conn.prepareStatement("UPDATE `order` SET `status` = '"+message+"' WHERE `order_code`='"+idOrder+"'");
