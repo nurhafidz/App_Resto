@@ -7,13 +7,9 @@ package Resto.team.pbo.view.pesanan;
 
 import Resto.team.pbo.controller.PesananController;
 import Resto.team.pbo.model.MakananModel;
-import Resto.team.pbo.view.pesanan.EditPesanan;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -147,6 +143,7 @@ public class TambahPesanan extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
@@ -170,6 +167,7 @@ public class TambahPesanan extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Keterangan"));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         txtNamaMakanan.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         txtNamaMakanan.setText("Nama Makanan");
@@ -264,6 +262,7 @@ public class TambahPesanan extends javax.swing.JFrame {
         getContentPane().add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, -1, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("List Pesanan"));
+        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblListPesanan.setModel(new javax.swing.table.DefaultTableModel(
@@ -467,6 +466,7 @@ public class TambahPesanan extends javax.swing.JFrame {
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         cbKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "makanan", "minuman", "snack", "paket" }));
+        cbKategori.setBorder(null);
         cbKategori.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbKategoriItemStateChanged(evt);
@@ -480,38 +480,37 @@ public class TambahPesanan extends javax.swing.JFrame {
                 btnBackMouseClicked(evt);
             }
         });
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbMenuMakananKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbMenuMakananKeyReleased
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbMenuMakananKeyReleased
+    }//GEN-LAST:event_btnBackActionPerformed
 
-    private void cbMenuMakananItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMenuMakananItemStateChanged
+    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
         // TODO add your handling code here:
-        controller.onMenuChange(this);
+        this.setVisible(false);
+        MenuPesanan menu = new MenuPesanan();
+        menu.setVisible(true);
+    }//GEN-LAST:event_btnBackMouseClicked
 
-    }//GEN-LAST:event_cbMenuMakananItemStateChanged
-
-    private void tfBanyakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBanyakActionPerformed
+    private void cbKategoriItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbKategoriItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfBanyakActionPerformed
+        controller.setKategori(this);
+    }//GEN-LAST:event_cbKategoriItemStateChanged
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnLoadDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoadDataMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void btnHapusPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusPesananActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnHapusPesananActionPerformed
-
-    private void btnTambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTambahMouseClicked
-        // TODO add your handling code here:
-        controller.onClickTambah(this);
-    }//GEN-LAST:event_btnTambahMouseClicked
+        controller.setValueTabel(this);
+    }//GEN-LAST:event_btnLoadDataMouseClicked
 
     private void btnEditPesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditPesananMouseClicked
         // TODO add your handling code here:
@@ -520,32 +519,41 @@ public class TambahPesanan extends javax.swing.JFrame {
         controller.EditPesanan(editPage, this);
     }//GEN-LAST:event_btnEditPesananMouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void btnHapusPesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusPesananActionPerformed
         // TODO add your handling code here:
-        controller.bayarPesanan(this);
-    }//GEN-LAST:event_jButton2MouseClicked
-
-    private void btnLoadDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoadDataMouseClicked
-        // TODO add your handling code here:
-        controller.setValueTabel(this);
-    }//GEN-LAST:event_btnLoadDataMouseClicked
+    }//GEN-LAST:event_btnHapusPesananActionPerformed
 
     private void btnHapusPesananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusPesananMouseClicked
         // TODO add your handling code here:
         controller.HapusPesanan(this);
     }//GEN-LAST:event_btnHapusPesananMouseClicked
 
-    private void cbKategoriItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbKategoriItemStateChanged
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        controller.setKategori(this);
-    }//GEN-LAST:event_cbKategoriItemStateChanged
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-        this.setVisible(false);
-        MenuPesanan menu = new MenuPesanan();
-        menu.setVisible(true);
-    }//GEN-LAST:event_btnBackMouseClicked
+        controller.bayarPesanan(this);
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void btnTambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTambahMouseClicked
+        // TODO add your handling code here:
+        controller.onClickTambah(this);
+    }//GEN-LAST:event_btnTambahMouseClicked
+
+    private void tfBanyakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfBanyakActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfBanyakActionPerformed
+
+    private void cbMenuMakananKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbMenuMakananKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMenuMakananKeyReleased
+
+    private void cbMenuMakananItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMenuMakananItemStateChanged
+        // TODO add your handling code here:
+        controller.onMenuChange(this);
+    }//GEN-LAST:event_cbMenuMakananItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -563,19 +571,16 @@ public class TambahPesanan extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TambahPesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TambahPesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TambahPesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TambahPesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new TambahPesanan().setVisible(true);
             }

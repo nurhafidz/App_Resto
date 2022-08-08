@@ -51,23 +51,18 @@ public class tambahTable extends javax.swing.JFrame {
         ComboStatus = new javax.swing.JComboBox<>();
         btnSimpan = new javax.swing.JButton();
         btnKembali = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU TABLE");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(102, 0, 0));
         jPanel1.setLayout(null);
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 19)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 255, 255));
         jLabel1.setText("STATUS                   :");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(20, 400, 180, 40);
 
-        TableName.setBackground(new java.awt.Color(204, 255, 255));
         TableName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         TableName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,13 +73,11 @@ public class tambahTable extends javax.swing.JFrame {
         TableName.setBounds(220, 290, 310, 40);
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("TAMBAH MEJA");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(150, 0, 290, 70);
 
-        TableCode.setBackground(new java.awt.Color(204, 255, 255));
         TableCode.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         TableCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,21 +87,16 @@ public class tambahTable extends javax.swing.JFrame {
         jPanel1.add(TableCode);
         TableCode.setBounds(220, 160, 310, 40);
 
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 19)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 255, 255));
         jLabel4.setText("KODE MEJA            :");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(20, 160, 180, 40);
 
-        jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 19)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 255, 255));
         jLabel5.setText("NAMA MEJA           :");
         jPanel1.add(jLabel5);
         jLabel5.setBounds(20, 290, 180, 40);
 
-        ComboStatus.setBackground(new java.awt.Color(204, 255, 255));
         ComboStatus.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         ComboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tersedia", "Tidak Tersedia" }));
         ComboStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +107,6 @@ public class tambahTable extends javax.swing.JFrame {
         jPanel1.add(ComboStatus);
         ComboStatus.setBounds(220, 400, 180, 40);
 
-        btnSimpan.setBackground(new java.awt.Color(204, 255, 255));
         btnSimpan.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnSimpan.setText("SIMPAN");
         btnSimpan.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -135,9 +122,8 @@ public class tambahTable extends javax.swing.JFrame {
         jPanel1.add(btnSimpan);
         btnSimpan.setBounds(360, 500, 190, 40);
 
-        btnKembali.setBackground(new java.awt.Color(204, 255, 255));
         btnKembali.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        btnKembali.setText("<<<KEMBALI");
+        btnKembali.setText("KEMBALI");
         btnKembali.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnKembaliMouseClicked(evt);
@@ -150,10 +136,6 @@ public class tambahTable extends javax.swing.JFrame {
         });
         jPanel1.add(btnKembali);
         btnKembali.setBounds(50, 500, 190, 40);
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resto/team/pbo/asset/image/resto.jpeg"))); // NOI18N
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(-110, 70, 740, 610);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 600));
 
@@ -277,7 +259,6 @@ public class tambahTable extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
